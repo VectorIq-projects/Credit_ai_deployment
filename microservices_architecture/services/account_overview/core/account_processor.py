@@ -169,8 +169,10 @@ def build_account_overview(items_df: pd.DataFrame, pay_df: pd.DataFrame) -> Tupl
     l3m_mask = pay_df["Payment_Date"] >= cutoff_90
     ltm_mask = pay_df["Payment_Date"] >= cutoff_365
 
-    l3m_paid_cnt = int(pay_df.loc[l3m_mask, "Payment_Date"].notna().sum())
-    ltm_paid_cnt = int(pay_df.loc[ltm_mask, "Payment_Date"].notna().sum())
+    # l3m_paid_cnt = int(pay_df.loc[l3m_mask, "Payment_Date"].notna().sum())
+    # ltm_paid_cnt = int(pay_df.loc[ltm_mask, "Payment_Date"].notna().sum())
+    l3m_paid_cnt = (pay_df["Payment_Date"] >= cutoff_90).sum()
+    ltm_paid_cnt = (pay_df["Payment_Date"] >= cutoff_365).sum()
     since_cnt = int(pay_df["Amt_Applied_to_Customer"].notna().sum())
 
     l3m_amt = pay_df.loc[l3m_mask, "Amt_Applied_to_Customer"].sum(skipna=True)
